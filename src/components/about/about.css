@@ -1,0 +1,21 @@
+#about-content {
+    display: flex;
+    align-items: stretch;
+    margin: auto;
+    max-width: 1080px;
+    width: 100%;
+    gap: 2em;
+}
+
+#about-content > div:first-child {
+    display: flex;
+    align-items: stretch;
+}
+
+#about-content img {
+    height: 100%;
+    width: auto; /* Maintains aspect ratio */
+    max-width: 300px; /* Optional: limits image width */
+    object-fit: cover; /* Ensures image covers the container */
+    display: block;
+}
