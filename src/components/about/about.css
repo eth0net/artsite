@@ -1,21 +1,34 @@
+#about-gallery {
+    margin-bottom: 2em;
+}
+
 #about-content {
     display: flex;
-    align-items: stretch;
+    flex-direction: column;
+    align-items: center;
     margin: auto;
     max-width: 1080px;
     width: 100%;
+}
+
+#about-bio {
+    display: flex;
+    align-items: stretch;
+    margin: auto;
     gap: 2em;
 }
 
-#about-content > div:first-child {
+#about-bio > div:first-child {
     display: flex;
     align-items: stretch;
 }
 
-#about-content img {
+#about-bio img {
     height: 100%;
     width: auto; /* Maintains aspect ratio */
     max-width: 300px; /* Optional: limits image width */
     object-fit: cover; /* Ensures image covers the container */
     display: block;
+    border-radius: 0.5em;
+    overflow: hidden;
 }
