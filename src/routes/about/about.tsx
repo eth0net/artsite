@@ -1,6 +1,6 @@
+import Carousel, { type CarouselImage } from "../../components/carousel";
 import "./about.css";
 import aboutImg from "/holly.avif";
-import Carousel, { type CarouselImage } from "../carousel";
 
 const images: CarouselImage[] = [
   { alt: "Rhino mother and baby", url: "/gallery/rhinos.avif" },
