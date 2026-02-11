@@ -1,16 +1,16 @@
 :root {
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 
-    color-scheme: normal;
-    color: #000000;
-    background-color: #e8d9d3;
+  color-scheme: normal;
+  color: #000000;
+  background-color: #e8d9d3;
 }
 
 body {
-    margin: 0;
-    width: 100vw;
-    min-height: 100vh;
-    display: flex;
+  margin: 0;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
 }
