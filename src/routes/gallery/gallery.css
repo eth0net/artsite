@@ -1,0 +1,34 @@
+.gallery-images {
+  display: flex;
+  flex-direction: column;
+  gap: 1em; /* gap between rows */
+  max-width: 1080px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.gallery-images > div {
+  display: flex;
+  flex-direction: row;
+  gap: 1em; /* gap between images in a row */
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  overflow: hidden; /* hide any accidental overflow */
+}
+
+.gallery-images img {
+  /*display: block;*/
+  max-height: 500px;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 0.5em;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  min-width: 0; /* allow shrinking below intrinsic width */
+}

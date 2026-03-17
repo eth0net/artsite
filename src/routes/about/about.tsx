@@ -1,25 +1,25 @@
 import Carousel, { type CarouselImage } from "../../components/carousel";
 import "./about.css";
-import aboutImg from "/holly.avif";
+import aboutImg from "/holly_grass.jpg";
 
 const images: CarouselImage[] = [
-  { alt: "Rhino mother and baby", url: "/gallery/rhinos.avif" },
-  { alt: "Cockapoo dog", url: "/gallery/dog_maisie.avif" },
-  { alt: "Black and white cat", url: "/gallery/cat_neeks.avif" },
-  { alt: "Black cat", url: "/gallery/cat_pusscat.avif" },
-  { alt: "Red panda", url: "/gallery/red_panda.avif" },
-  { alt: "Tigers in a pool", url: "/gallery/tiger_valentina_bagai.avif" },
-  { alt: "Eagle owl", url: "/gallery/owl_eagle.avif" },
-  { alt: "Sausage dog", url: "/gallery/dog_sausage.avif" },
-  { alt: "Black and white maine coon cat", url: "/gallery/cat_phoenix.avif" },
-  { alt: "Boxer dog", url: "/gallery/dog_max.avif" },
-  { alt: "Tabby cat with white", url: "/gallery/cat.avif" },
-  { alt: "Tawny owl", url: "/gallery/owl_tawny.avif" },
-  { alt: "Barn owl", url: "/gallery/owl_barn.avif" },
-  { alt: "Little owl", url: "/gallery/owl_little.avif" },
-  { alt: "Snowy owl", url: "/gallery/owl_snowy.avif" },
-  { alt: "Silver maine coon cat", url: "/gallery/cat_mitzi.avif" },
-  { alt: "Lynx", url: "/gallery/lynx.avif" },
+  { alt: "Rhino mother and baby", url: "/hope.png" },
+  { alt: "Cockapoo dog", url: "/dog_maisie.jpg" },
+  { alt: "Black and white cat", url: "/cat_neeks.jpg" },
+  { alt: "Black cat", url: "/cat_pusscat.jpg" },
+  { alt: "Red panda", url: "/seeing_red.jpg" },
+  { alt: "Tigers in a pool", url: "/reflective_beauty.png" },
+  { alt: "Eagle owl", url: "/owl_eagle.png" },
+  { alt: "Sausage dog", url: "/dog_sausage.jpg" },
+  { alt: "Black and white maine coon cat", url: "/cat_phoenix.jpg" },
+  { alt: "Boxer dog", url: "/dog_max.jpg" },
+  { alt: "Tabby cat with white", url: "/cat_tabby_white.jpg" },
+  { alt: "Tawny owl", url: "/owl_tawny.png" },
+  { alt: "Barn owl", url: "/owl_barn.png" },
+  { alt: "Little owl", url: "/owl_little.png" },
+  { alt: "Snowy owl", url: "/owl_snowy.png" },
+  { alt: "Silver maine coon cat", url: "/cat_mitzi.jpg" },
+  { alt: "Lynx", url: "/lynx.jpg" },
 ];
 
 function About() {
