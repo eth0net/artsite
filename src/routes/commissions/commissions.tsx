@@ -108,6 +108,25 @@ function Commissions() {
           <img src={images[5].url} alt={images[5].alt} />
         </div>
       </div>
+
+      <div>
+        <h2>Book a Commission</h2>
+        <p>
+          <span>Please contact me at </span>
+          <a href="mailto:holly@hollyrebeccaartwork.co.uk">
+            holly@hollyrebeccaartwork.co.uk
+          </a>
+          <span> to book a commission.</span>
+        </p>
+        <p>
+          Please include as much information about what you'd like to commission
+          as possible (size, number of subjects, and who I'll be drawing). If
+          you'd like a custom quote or if you have any other questions please
+          don't hesitate to ask me. I aim to reply to all messages within 24
+          hours, although usually a lot faster! Thank you for your interest in
+          my artwork.
+        </p>
+      </div>
     </div>
   );
 }

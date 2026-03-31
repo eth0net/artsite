@@ -25,6 +25,22 @@
   min-width: 0;
 }
 
+#commissions .prices {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  margin: auto;
+  max-width: 840px;
+  width: 100%;
+}
+
+#commissions .prices .price-card {
+  background-color: #ffffff;
+  border-radius: 1em;
+  flex: 1 1 25%;
+  min-width: 0;
+}
+
 #commissions #images-2 {
   display: grid;
   grid-template-columns: auto auto;
@@ -72,18 +88,7 @@
   background: #f8f8f8;
 }
 
-#commissions .prices {
-  display: flex;
-  flex-direction: row;
-  gap: 1em;
-  margin: auto;
-  max-width: 840px;
-  width: 100%;
-}
-
-#commissions .prices .price-card {
-  background-color: #ffffff;
-  border-radius: 1em;
-  flex: 1 1 25%;
-  min-width: 0;
+#commissions a {
+  color: inherit;
+  text-decoration: none;
 }
