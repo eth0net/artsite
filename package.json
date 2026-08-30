@@ -16,10 +16,10 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
-    "@types/node": "^24.13.3",
+    "@types/node": "^26",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
-    "@vitejs/plugin-react": "^5.2.0",
+    "@vitejs/plugin-react": "^6",
     "eslint": "^9.39.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.4.26",
@@ -27,10 +27,10 @@
     "sharp": "^0.35.4",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.68.0",
-    "vite": "npm:rolldown-vite@7.2.5",
+    "vite": "npm:rolldown-vite@7.3.1",
     "vite-imagetools": "^12.0.1"
   },
   "overrides": {
-    "vite": "npm:rolldown-vite@7.2.5"
+    "vite": "npm:rolldown-vite@7.3.1"
   }
 }
