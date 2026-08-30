@@ -1,0 +1,54 @@
+# Git hooks, run by `prek` (https://prek.j178.dev).
+#:schema https://www.schemastore.org/prek.json
+#
+#     prek install
+#
+# Split by latency: anything that only reads files runs on `pre-commit`, so
+# committing stays quick. Anything that compiles runs on `pre-push`, where the
+# wait is expected and the alternative is finding out from a failed deploy.
+
+default_install_hook_types = ["pre-commit", "pre-push"]
+
+# Artwork sources and the lockfile. The whitespace fixers would either corrupt
+# a JPEG or churn a generated file on every commit.
+exclude = '''
+(?x)^(
+  src/images/.*\.jpg|
+  public/(og-image\.jpg|apple-touch-icon\.png)|
+  bun\.lock
+)$
+'''
+
+# Bundled with prek itself, so there is no repository to clone and no Python to
+# install: a fresh checkout can run these offline.
+[[repos]]
+repo = "builtin"
+hooks = [
+  { id = "trailing-whitespace", args = ["--markdown-linebreak-ext=md"] },
+  { id = "end-of-file-fixer" },
+  # .gitattributes pins the working tree to LF; this catches a file that
+  # slipped in before it applied.
+  { id = "mixed-line-ending", args = ["--fix=lf"] },
+  { id = "check-merge-conflict" },
+  # Cloudflare Pages serves from a case-insensitive URL space but builds on
+  # Linux, so two names differing only by case resolve differently in each.
+  { id = "check-case-conflict" },
+  { id = "check-illegal-windows-names" },
+  # Artwork sources run to ~2.6MB by design. The cap exists to catch a camera
+  # original going in by mistake — that is how public/ reached 151MB.
+  { id = "check-added-large-files", args = ["--maxkb=3072"] },
+  # tsconfig*.json is JSONC and may carry comments, which this would reject.
+  { id = "check-json", exclude = '^tsconfig.*\.json$' },
+  { id = "check-toml" },
+  { id = "check-yaml" },
+]
+
+[[repos]]
+repo = "local"
+hooks = [
+  { id = "prettier", name = "prettier", language = "system", entry = "bunx prettier --check", files = '\.(m?[jt]sx?|css|html|json|md)$' },
+  { id = "eslint", name = "eslint", language = "system", entry = "bunx eslint --max-warnings=0", files = '\.tsx?$' },
+  # `build` is `tsc -b && vite build`, so this type-checks as well. It also
+  # re-encodes any new artwork, which is why it is not a pre-commit hook.
+  { id = "build", name = "vite build", language = "system", entry = "bun run build", pass_filenames = false, stages = ["pre-push"] },
+]
