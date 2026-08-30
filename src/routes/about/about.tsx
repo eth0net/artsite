@@ -1,4 +1,5 @@
-import Carousel from "../../components/carousel";
+// Swap for ../../components/carousel to go back to the one-at-a-time version.
+import Banner from "../../components/banner";
 import Image from "../../components/image";
 import { artwork, artworks } from "../../images";
 import "./about.css";
@@ -32,7 +33,7 @@ function About() {
         content="Coloured pencil pet portraits and wildlife art by Holly Rebecca, based in Bishopstoke, Hampshire."
       />
       <div id="about-gallery">
-        <Carousel images={images} />
+        <Banner images={images} />
       </div>
       <div id="about-content">
         <div id="about-bio">

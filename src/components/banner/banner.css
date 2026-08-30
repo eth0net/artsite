@@ -1,0 +1,51 @@
+.banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner-viewport {
+  height: clamp(240px, 38vw, 340px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* Don't let a horizontal flick turn into a page-level scroll on iOS. */
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.banner-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.banner-track {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  width: max-content;
+}
+
+/* The second copy has to lay out as part of the same row, not as one box. */
+.banner-repeat {
+  display: contents;
+}
+
+.banner-track img {
+  display: block;
+  flex: 0 0 auto;
+  height: 100%;
+  width: auto; /* A common height is what makes the mixed ratios sit together */
+  max-width: none;
+  object-fit: cover;
+  user-select: none;
+}
+
+/* Without motion it is simply a strip you scroll yourself. */
+@media (prefers-reduced-motion: reduce) {
+  .banner-viewport {
+    scroll-snap-type: x proximity;
+  }
+
+  .banner-track img {
+    scroll-snap-align: center;
+  }
+}
