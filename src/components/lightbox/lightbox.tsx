@@ -73,7 +73,11 @@ export function Lightbox({
     >
       {current && (
         <>
-          <button className="lightbox-close" onClick={onClose} aria-label="Close">
+          <button
+            className="lightbox-close"
+            onClick={onClose}
+            aria-label="Close"
+          >
             <span aria-hidden="true">×</span>
           </button>
           <button

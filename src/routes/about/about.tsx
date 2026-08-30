@@ -38,7 +38,10 @@ function About() {
       <div id="about-content">
         <div id="about-bio">
           <div id="about-portrait">
-            <Image {...artwork.holly_grass} sizes="(max-width: 720px) 60vw, 300px" />
+            <Image
+              {...artwork.holly_grass}
+              sizes="(max-width: 720px) 60vw, 300px"
+            />
           </div>
           <div>
             <h1>About Me</h1>

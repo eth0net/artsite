@@ -11,7 +11,9 @@ export function Carousel({ images }: CarouselProps) {
   const swipeFrom = useRef<number | null>(null);
 
   function at(offset: number) {
-    return images[(((index + offset) % images.length) + images.length) % images.length];
+    return images[
+      (((index + offset) % images.length) + images.length) % images.length
+    ];
   }
 
   function step(offset: number) {
@@ -46,7 +48,10 @@ export function Carousel({ images }: CarouselProps) {
         onPointerUp={handlePointerUp}
         onPointerCancel={() => (swipeFrom.current = null)}
       >
-        <div className="carousel-images carousel-images-left" aria-hidden="true">
+        <div
+          className="carousel-images carousel-images-left"
+          aria-hidden="true"
+        >
           {SIDES.map((n) => (
             <Image key={n} {...at(-n)} alt="" sizes={SIDE_SIZES} />
           ))}
