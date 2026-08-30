@@ -1,0 +1,17 @@
+# Dependabot only reads .yml here, not the .yaml this repo prefers elsewhere.
+version: 2
+updates:
+  # Bun is a first-class ecosystem as of Dependabot's bun.lock support.
+  - package-ecosystem: "bun"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      # One PR for the whole toolchain: eslint, typescript-eslint and the vite
+      # plugins move together and are pointless to review apart.
+      dev-dependencies:
+        dependency-type: "development"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"

@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    # Cloudflare Pages builds this on Linux and the output is a static site, so
+    # there is nothing a macOS or Windows runner would tell us.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile
+      - run: bun run format:check
+      - run: bun run lint
+      # `build` is `tsc -b && vite build`, so this type-checks too. It also
+      # catches an artwork source that sharp cannot decode.
+      - run: bun run build
