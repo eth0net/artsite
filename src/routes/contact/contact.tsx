@@ -1,19 +1,27 @@
-import type { CarouselImage } from "../../components/carousel";
+import Image from "../../components/image";
+import { artwork } from "../../images";
 import "./contact.css";
-
-const images: CarouselImage[] = [
-  { alt: "Black and white cat", url: "/cat_neeks.jpg" },
-];
 
 function Contact() {
   return (
     <div id="contact">
-      <img src={images[0].url} alt={images[0].alt} />
+      <title>Contact — Holly Rebecca Artwork</title>
+      <meta
+        name="description"
+        content="Get in touch with Holly Rebecca about a coloured pencil pet portrait commission."
+      />
+      <Image
+        {...artwork.cat_neeks}
+        sizes="(max-width: 980px) calc(100vw - 2rem), 980px"
+        priority
+      />
       <h1>Contact</h1>
       <p>Holly Rebecca Thomas</p>
-      <a href="mailto:holly@hollyrebeccaartwork.co.uk">
-        holly@hollyrebeccaartwork.co.uk
-      </a>
+      <p>
+        <a href="mailto:holly@hollyrebeccaartwork.co.uk">
+          holly@hollyrebeccaartwork.co.uk
+        </a>
+      </p>
     </div>
   );
 }

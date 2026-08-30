@@ -2,11 +2,9 @@ import "./footer.css";
 
 function Footer() {
   return (
-    <>
-      <div id="footer">
-        <p>©2026 Holly Rebecca Artwork</p>
-      </div>
-    </>
+    <footer id="footer">
+      <p>©{new Date().getFullYear()} Holly Rebecca Artwork</p>
+    </footer>
   );
 }
 

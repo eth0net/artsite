@@ -1,31 +1,45 @@
-import type { CarouselImage } from "../../components/carousel";
+import Image from "../../components/image";
+import { artworks } from "../../images";
 import "./commissions.css";
 
-const images: CarouselImage[] = [
-  { alt: "Eagle owl", url: "/owl_eagle.png" },
-  { alt: "Black and white cat", url: "/cat_neeks.jpg" },
-  { alt: "Barn owl", url: "/owl_barn.png" },
-  { alt: "Cockapoo dog", url: "/dog_maisie.jpg" },
-  { alt: "Black and white maine coon cat", url: "/cat_phoenix.jpg" },
-  { alt: "Black cat", url: "/cat_pusscat.jpg" },
+const banner = artworks("owl_eagle", "cat_neeks", "owl_barn");
+const [feature, ...alongside] = artworks(
+  "dog_maisie",
+  "cat_phoenix",
+  "cat_pusscat",
+);
+
+const prices = [
+  { name: "Small Portrait", size: "8x6 inches", price: "£180" },
+  { name: "Standard Portrait", size: "10x7 inches", price: "£240" },
+  { name: "Medium Portrait", size: "12x10 inches", price: "£380" },
+  { name: "Large Portrait", size: "16x12 inches", price: "£600" },
 ];
+
+const BANNER_SIZES = "(max-width: 700px) 45vw, 320px";
+const FEATURE_SIZES = "(max-width: 700px) calc(100vw - 2rem), 480px";
 
 function Commissions() {
   return (
     <div id="commissions">
+      <title>Commissions — Holly Rebecca Artwork</title>
+      <meta
+        name="description"
+        content="Commission a coloured pencil portrait of your pet. Prices from £180, mounted, with UK postage included."
+      />
       <div>
         <h1>Commissions</h1>
         <p>
           <span>I am currently </span>
-          <span style={{ color: "#7fa88b" }}>OPEN</span>
+          <strong className="status-open">OPEN</strong>
           <span> for commissions.</span>
         </p>
       </div>
 
       <div id="images-1">
-        <img src={images[0].url} alt={images[0].alt} />
-        <img src={images[1].url} alt={images[1].alt} />
-        <img src={images[2].url} alt={images[2].alt} />
+        {banner.map((image) => (
+          <Image key={image.img.src} {...image} sizes={BANNER_SIZES} />
+        ))}
       </div>
 
       <div>
@@ -75,38 +89,24 @@ function Commissions() {
       </div>
 
       <div className="prices">
-        <div className="price-card">
-          <h3>Small Portrait</h3>
-          <p>8x6 inches</p>
-          <p>£180</p>
-        </div>
-        <div className="price-card">
-          <h3>Standard Portrait</h3>
-          <p>10x7 inches</p>
-          <p>£240</p>
-        </div>
-        <div className="price-card">
-          <h3>Medium Portrait</h3>
-          <p>12x10 inches</p>
-          <p>£380</p>
-        </div>
-        <div className="price-card">
-          <h3>Large Portrait</h3>
-          <p>16x12 inches</p>
-          <p>£600</p>
-        </div>
+        {prices.map(({ name, size, price }) => (
+          <div className="price-card" key={name}>
+            <h3>{name}</h3>
+            <p>{size}</p>
+            <p>{price}</p>
+          </div>
+        ))}
       </div>
 
       <div id="images-2">
         <div>
-          <img src={images[3].url} alt={images[3].alt} />
+          <Image {...feature} sizes={FEATURE_SIZES} />
         </div>
-        <div>
-          <img src={images[4].url} alt={images[4].alt} />
-        </div>
-        <div>
-          <img src={images[5].url} alt={images[5].alt} />
-        </div>
+        {alongside.map((image) => (
+          <div key={image.img.src}>
+            <Image {...image} sizes={FEATURE_SIZES} />
+          </div>
+        ))}
       </div>
 
       <div>

@@ -1,64 +1,128 @@
 .carousel {
-    position: relative;
-    height: 300px;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  --arrow-inset: 0.5rem;
+
+  position: relative;
+  height: clamp(240px, 38vw, 340px);
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .carousel-images-container {
-    display: flex;
-    flex: 1 1 0%;
-    height: 100%;
-    width: 0;
-    overflow: hidden;
-    gap: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  gap: 1em;
+  touch-action: pan-y;
 }
 
 .carousel-images {
-    display: flex;
-    gap: 1em;
-    overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 1em;
+  overflow: hidden;
+}
+
+.carousel-images-left,
+.carousel-images-right {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .carousel-images-left {
-    flex: 1 1 10%;
-    justify-content: right;
+  justify-content: flex-end;
 }
 
 .carousel-images-right {
-    flex: 1 1 10%;
-    justify-content: left;
+  justify-content: flex-start;
+}
+
+/* Every slide is the same height and stays centred; a wide piece is allowed to
+   run out under the arrows rather than shrinking the whole carousel to fit it.
+   .carousel clips the excess. */
+.carousel-images-center {
+  flex: 0 0 auto;
+  justify-content: center;
 }
 
 .carousel-images img {
-    height: 100%;
-    width: auto; /* Maintains aspect ratio */
-    object-fit: cover; /* Ensures image covers the container */
-    border-radius: 0.5em;
+  height: 100%;
+  width: auto; /* Maintains aspect ratio */
+  max-width: none; /* Height drives the size, not the container width */
+  object-fit: cover;
+  border-radius: 0.5em;
+  pointer-events: none; /* Don't let image drag pre-empt the swipe */
+  user-select: none;
 }
 
 .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    font-size: 4em;
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
-    cursor: pointer;
-    padding: 0 0.2em;
-    color: #333;
-    transition: background 0.2s;
-    border-radius: 0.2em;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 2.5rem;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  border: none;
+  cursor: pointer;
+  color: #333;
+  transition: background 0.2s;
+  border-radius: 0.2em;
+}
+
+.carousel-button:hover,
+.carousel-button:focus-visible {
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .carousel-button-left {
-    left: 0.2em;
+  left: var(--arrow-inset);
 }
 
 .carousel-button-right {
-    right: 0.2em;
+  right: var(--arrow-inset);
+}
+
+/* One image at a time below desktop — the side previews are unreadable slivers
+   at these widths and only crowd the arrows. */
+@media (max-width: 900px) {
+  .carousel-images-left,
+  .carousel-images-right {
+    display: none;
+  }
+
+  /* Flex centring stops centring once free space goes negative, which pins a
+     too-wide piece to the left and spills it all off the right. Positioning it
+     off the midpoint instead splits the overflow evenly, whatever the ratio. */
+  .carousel-images-center {
+    position: relative;
+    flex: 1 1 100%;
+    min-width: 0;
+    display: block;
+    overflow: visible;
+  }
+
+  .carousel-images-center img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .carousel-button {
+    font-size: 2rem;
+  }
 }

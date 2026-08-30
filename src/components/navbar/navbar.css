@@ -1,6 +1,6 @@
 #navbar {
   background-color: #ffffff;
-  margin: 2em 0;
+  margin: 0 0 2em;
   display: flex;
   justify-content: center;
   align-items: stretch;
@@ -9,15 +9,21 @@
 
 #navbar-content {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  gap: 0.5em 2em;
   margin: auto;
-  padding: 2em;
-  max-width: 1080px;
+  padding: 1.5em var(--page-gutter);
+  max-width: var(--page-width);
   width: 100%;
 }
 
-#navbar-title > h1 {
+#navbar-title {
   margin: 0;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .navbar-section {
@@ -25,12 +31,59 @@
   align-items: center;
 }
 
-#navbar-links > * {
-  padding: 0 2em;
+#navbar-links {
+  flex-wrap: nowrap;
+  justify-content: center;
+  /* Last resort on a very narrow phone: scroll rather than wrap or clip. */
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+#navbar-links::-webkit-scrollbar {
+  display: none;
+}
+
+#navbar a {
   text-decoration: none;
   color: #000000;
 }
 
+#navbar-links a {
+  padding: 0.4em 1.5em;
+  white-space: nowrap;
+}
+
+#navbar-links a:hover,
+#navbar-links a:focus-visible {
+  text-decoration: underline;
+}
+
+#navbar-links a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
 #navbar-links > :not(:last-child) {
   border-right: 1px solid #ccc;
+}
+
+/* Stack the title over centred links once they stop fitting side by side. */
+@media (max-width: 780px) {
+  #navbar-content {
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.25em var(--page-gutter);
+    gap: 0.75em;
+  }
+
+  #navbar-title {
+    text-align: center;
+  }
+
+  /* Shrink to keep all four on one row rather than letting Contact drop. */
+  #navbar-links a {
+    padding: 0.4em 0.5em;
+    font-size: clamp(0.75rem, 3vw, 1rem);
+  }
 }

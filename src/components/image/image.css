@@ -1,0 +1,4 @@
+/* Keep the <img> as the flex/grid item so layout rules can target it directly. */
+picture {
+  display: contents;
+}

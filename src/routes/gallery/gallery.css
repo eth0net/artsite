@@ -1,34 +1,33 @@
-.gallery-images {
-  display: flex;
-  flex-direction: column;
-  gap: 1em; /* gap between rows */
-  max-width: 1080px;
-  margin: auto;
-  box-sizing: border-box;
+#gallery {
+  padding: 0 var(--page-gutter);
 }
 
-.gallery-images > div {
-  display: flex;
-  flex-direction: row;
-  gap: 1em; /* gap between images in a row */
-  justify-content: center;
-  align-items: flex-start;
-  max-width: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  flex-wrap: nowrap;
-  overflow: hidden; /* hide any accidental overflow */
+/* Columns rather than grid: the pieces range from 2000x842 to 1346x2000, so a
+   uniform grid would either crop them or leave holes. */
+.gallery-images {
+  columns: 3;
+  column-gap: 1em;
+  max-width: var(--page-width);
+  margin: auto;
 }
 
 .gallery-images img {
-  /*display: block;*/
-  max-height: 500px;
-  height: 100%;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1em;
   border-radius: 0.5em;
-  box-sizing: border-box;
-  flex: 1 1 auto;
-  min-width: 0; /* allow shrinking below intrinsic width */
+  break-inside: avoid;
+}
+
+@media (max-width: 900px) {
+  .gallery-images {
+    columns: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-images {
+    columns: 1;
+  }
 }

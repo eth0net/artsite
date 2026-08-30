@@ -1,12 +1,12 @@
 #contact {
   width: 100%;
-  max-width: 980px;
+  max-width: var(--page-width);
   margin: auto;
-  overflow: hidden;
+  padding: 0 var(--page-gutter);
 }
 
 #contact img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   object-fit: contain;
   border-radius: 0.5em;
@@ -14,5 +14,5 @@
 
 #contact a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
 }

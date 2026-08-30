@@ -1,41 +1,43 @@
-import Carousel, { type CarouselImage } from "../../components/carousel";
+import Carousel from "../../components/carousel";
+import Image from "../../components/image";
+import { artwork, artworks } from "../../images";
 import "./about.css";
-import aboutImg from "/holly_grass.jpg";
 
-const images: CarouselImage[] = [
-  { alt: "Rhino mother and baby", url: "/hope.png" },
-  { alt: "Cockapoo dog", url: "/dog_maisie.jpg" },
-  { alt: "Black and white cat", url: "/cat_neeks.jpg" },
-  { alt: "Black cat", url: "/cat_pusscat.jpg" },
-  { alt: "Red panda", url: "/seeing_red.jpg" },
-  { alt: "Tigers in a pool", url: "/reflective_beauty.png" },
-  { alt: "Eagle owl", url: "/owl_eagle.png" },
-  { alt: "Sausage dog", url: "/dog_sausage.jpg" },
-  { alt: "Black and white maine coon cat", url: "/cat_phoenix.jpg" },
-  { alt: "Boxer dog", url: "/dog_max.jpg" },
-  { alt: "Tabby cat with white", url: "/cat_tabby_white.jpg" },
-  { alt: "Tawny owl", url: "/owl_tawny.png" },
-  { alt: "Barn owl", url: "/owl_barn.png" },
-  { alt: "Little owl", url: "/owl_little.png" },
-  { alt: "Snowy owl", url: "/owl_snowy.png" },
-  { alt: "Silver maine coon cat", url: "/cat_mitzi.jpg" },
-  { alt: "Lynx", url: "/lynx.jpg" },
-];
+const images = artworks(
+  "hope",
+  "dog_maisie",
+  "cat_neeks",
+  "cat_pusscat",
+  "seeing_red",
+  "reflective_beauty",
+  "owl_eagle",
+  "dog_sausage",
+  "cat_phoenix",
+  "dog_max",
+  "cat_tabby_white",
+  "owl_tawny",
+  "owl_barn",
+  "owl_little",
+  "owl_snowy",
+  "cat_mitzi",
+  "lynx",
+);
 
 function About() {
   return (
     <div id="about">
+      <title>Holly Rebecca Artwork — Coloured Pencil Pet Portraits</title>
+      <meta
+        name="description"
+        content="Coloured pencil pet portraits and wildlife art by Holly Rebecca, based in Bishopstoke, Hampshire."
+      />
       <div id="about-gallery">
         <Carousel images={images} />
       </div>
       <div id="about-content">
         <div id="about-bio">
-          <div>
-            <img
-              src={aboutImg}
-              alt="Holly Rebecca"
-              style={{ width: "300px" }}
-            />
+          <div id="about-portrait">
+            <Image {...artwork.holly_grass} sizes="(max-width: 720px) 60vw, 300px" />
           </div>
           <div>
             <h1>About Me</h1>

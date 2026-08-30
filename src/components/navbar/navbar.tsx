@@ -1,23 +1,29 @@
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import "./navbar.css";
+
+const links = [
+  { to: "/", label: "Home" },
+  { to: "/commissions", label: "Commissions" },
+  { to: "/gallery", label: "Gallery" },
+  { to: "/contact", label: "Contact" },
+];
 
 function Navbar() {
   return (
-    <>
-      <div id="navbar">
-        <div id="navbar-content">
-          <div id="navbar-title" className="navbar-section">
-            <h1>Holly Rebecca Artwork</h1>
-          </div>
-          <div id="navbar-links" className="navbar-section">
-            <Link to="/">Home</Link>
-            <Link to="/commissions">Commissions</Link>
-            <Link to="/gallery">Gallery</Link>
-            <Link to="/contact">Contact</Link>
-          </div>
-        </div>
+    <header id="navbar">
+      <div id="navbar-content">
+        <p id="navbar-title" className="navbar-section">
+          <Link to="/">Holly Rebecca Artwork</Link>
+        </p>
+        <nav id="navbar-links" className="navbar-section" aria-label="Main">
+          {links.map(({ to, label }) => (
+            <NavLink key={to} to={to} end={to === "/"}>
+              {label}
+            </NavLink>
+          ))}
+        </nav>
       </div>
-    </>
+    </header>
   );
 }
 
