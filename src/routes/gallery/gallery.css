@@ -11,13 +11,29 @@
   margin: auto;
 }
 
+.gallery-images button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 1em;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+  border-radius: 0.5em;
+  break-inside: avoid;
+}
+
 .gallery-images img {
   display: block;
   width: 100%;
   height: auto;
-  margin-bottom: 1em;
   border-radius: 0.5em;
-  break-inside: avoid;
+  transition: transform 0.2s;
+}
+
+.gallery-images button:hover img,
+.gallery-images button:focus-visible img {
+  transform: scale(1.02);
 }
 
 @media (max-width: 900px) {

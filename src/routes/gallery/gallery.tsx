@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Image from "../../components/image";
+import Lightbox from "../../components/lightbox";
 import { artworks } from "../../images";
 import "./gallery.css";
 
@@ -31,6 +33,8 @@ const SIZES =
   "(max-width: 600px) calc(100vw - 2rem), (max-width: 900px) 45vw, 340px";
 
 function Gallery() {
+  const [open, setOpen] = useState<number | null>(null);
+
   return (
     <div id="gallery">
       <title>Gallery — Holly Rebecca Artwork</title>
@@ -40,10 +44,23 @@ function Gallery() {
       />
       <h1>Gallery</h1>
       <div className="gallery-images">
-        {images.map((image) => (
-          <Image key={image.img.src} {...image} sizes={SIZES} />
+        {images.map((image, i) => (
+          <button
+            key={image.img.src}
+            type="button"
+            onClick={() => setOpen(i)}
+            aria-label={`View ${image.alt} full screen`}
+          >
+            <Image {...image} sizes={SIZES} />
+          </button>
         ))}
       </div>
+      <Lightbox
+        images={images}
+        index={open}
+        onIndexChange={setOpen}
+        onClose={() => setOpen(null)}
+      />
     </div>
   );
 }
