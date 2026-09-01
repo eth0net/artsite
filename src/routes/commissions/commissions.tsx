@@ -16,7 +16,7 @@ const prices = [
   { name: "Large Portrait", size: "16x12 inches", price: "£600" },
 ];
 
-const BANNER_SIZES = "(max-width: 700px) 45vw, 320px";
+const BANNER_SIZES = "(max-width: 700px) 37vw, 420px";
 const FEATURE_SIZES = "(max-width: 700px) calc(100vw - 2rem), 480px";
 
 function Commissions() {
