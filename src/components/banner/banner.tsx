@@ -4,6 +4,10 @@ import Image from "../image";
 import "./banner.css";
 
 const SIZES = "(max-width: 900px) 50vw, 33vw";
+/** How long the strip stays still after the visitor last moved it. */
+const IDLE_MS = 3000;
+/** Three, so a manual scroll has a whole copy of runway in either direction. */
+const COPIES = 3;
 
 export interface BannerProps {
   images: Artwork[];
@@ -12,19 +16,15 @@ export interface BannerProps {
 }
 
 /**
- * A continuously drifting strip of artwork. The list is rendered twice and the
- * scroll offset wraps at the halfway point, so the seam never shows.
- *
- * It drives a real scroll container rather than a transform, which means touch
- * dragging, momentum and the keyboard all work without any code of our own —
- * we just stop advancing while the visitor is interacting.
+ * A drifting strip of artwork, rendered in identical copies so the offset can
+ * wrap by exactly one without a seam. Drives a real scroll container rather
+ * than a transform, so touch, momentum and the keyboard work on their own.
  */
 export function Banner({ images, speed = 30 }: BannerProps) {
   const viewport = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const held = useRef(false);
-  const paused = useRef(false);
-  /** Momentum keeps scrolling after the finger lifts; let it finish first. */
+  const hovered = useRef(false);
   const resumeAt = useRef(0);
 
   useEffect(() => {
@@ -32,89 +32,125 @@ export function Banner({ images, speed = 30 }: BannerProps) {
     const strip = track.current;
     if (!el || !strip) return;
 
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (still.matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let frame = 0;
     let last = performance.now();
     let offset = 0;
+    // What we last wrote, so a scroll we did not cause is recognisable.
+    let written = 0;
+    let period = 0;
+    let placed = false;
+    let wasIdle = true;
+
+    // Distance from one copy of a piece to the next. Measured rather than
+    // derived, so the gap between images cannot throw the seam out.
+    function measure() {
+      const items = strip!.querySelectorAll("img");
+      period =
+        items.length > images.length
+          ? items[images.length].offsetLeft - items[0].offsetLeft
+          : 0;
+
+      // Start in the middle copy, so there is runway in both directions.
+      if (!placed && period > 0) {
+        placed = true;
+        offset = period;
+        el!.scrollLeft = offset;
+        written = el!.scrollLeft;
+      }
+    }
+
+    measure();
+    const resize = new ResizeObserver(measure);
+    resize.observe(strip);
 
     function tick(now: number) {
       frame = requestAnimationFrame(tick);
-      const elapsed = (now - last) / 1000;
+      // Clamp, or returning to a backgrounded tab lurches the strip forward.
+      const elapsed = Math.min((now - last) / 1000, 0.1);
       last = now;
-      if (!el || !strip) return;
+      if (!el || period <= 0) return;
 
-      const half = strip.scrollWidth / 2;
-      if (half <= 0) return;
+      const actual = el.scrollLeft;
+      // Catches touch, wheel, keyboard and scrollbar alike; pointer events do
+      // not. The margin absorbs the browser rounding our own writes.
+      const moved = Math.abs(actual - written) > 1;
+      if (moved) resumeAt.current = now + IDLE_MS;
 
-      if (paused.current || held.current || now < resumeAt.current) {
-        // The visitor has the wheel; just keep our bookkeeping in step.
-        offset = el.scrollLeft;
-        if (!held.current) offset = wrap(el, offset, half);
+      const idle = held.current || hovered.current || now < resumeAt.current;
+      // Not driving means the DOM is the truth, first frame back included, or a
+      // flick's sub-pixel tail is dropped and it snaps. Drifting stays fractional.
+      if (idle || wasIdle) offset = actual;
+      wasIdle = idle;
+
+      if (idle) {
+        // Writing scrollLeft mid-flick kills momentum, so step only near the ends.
+        if (moved && rescue()) {
+          el.scrollLeft = offset;
+        }
+        written = el.scrollLeft;
         return;
       }
 
-      offset = wrap(el, offset + speed * elapsed, half);
+      // Drift only moves right; a lower wrap would yank it after a manual scroll.
+      offset += speed * elapsed;
+      if (offset >= period * 2) offset -= period;
       el.scrollLeft = offset;
+      written = el.scrollLeft;
+    }
+
+    /** Step a whole copy when a manual scroll nears either end. */
+    function rescue() {
+      if (offset > period * 2.4) {
+        offset -= period;
+        return true;
+      }
+      if (offset < period * 0.6) {
+        offset += period;
+        return true;
+      }
+      return false;
     }
 
     frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [speed]);
-
-  function release() {
-    held.current = false;
-    resumeAt.current = performance.now() + 700;
-  }
+    return () => {
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+    };
+  }, [speed, images.length]);
 
   return (
     <div
       className="banner"
       role="region"
       aria-label="Recent artwork"
-      onMouseEnter={() => (paused.current = true)}
-      onMouseLeave={() => (paused.current = false)}
-      onFocusCapture={() => (paused.current = true)}
-      onBlurCapture={() => (paused.current = false)}
+      onMouseEnter={() => (hovered.current = true)}
+      onMouseLeave={() => (hovered.current = false)}
+      onFocusCapture={() => (hovered.current = true)}
+      onBlurCapture={() => (hovered.current = false)}
+      // Only a finger resting still; a drag is caught by the scroll check.
       onPointerDown={() => (held.current = true)}
-      onPointerUp={release}
-      onPointerCancel={release}
+      onPointerUp={() => (held.current = false)}
+      onPointerCancel={() => (held.current = false)}
     >
       <div className="banner-viewport" ref={viewport} tabIndex={0}>
         <div className="banner-track" ref={track}>
-          {images.map((image, i) => (
-            <Image
-              key={image.img.src}
-              {...image}
-              sizes={SIZES}
-              priority={i < 3}
-            />
-          ))}
-          <div className="banner-repeat" aria-hidden="true">
-            {images.map((image) => (
-              <Image key={image.img.src} {...image} alt="" sizes={SIZES} />
+          {Array.from({ length: COPIES }, () => images)
+            .flat()
+            .map((image, i) => (
+              <Image
+                key={i}
+                {...image}
+                alt={i < images.length ? image.alt : ""}
+                sizes={SIZES}
+                priority={i < 3}
+              />
             ))}
-          </div>
         </div>
       </div>
     </div>
   );
-}
-
-/** Keep the offset inside the first copy of the strip. */
-function wrap(el: HTMLDivElement, offset: number, half: number) {
-  if (offset >= half) {
-    const next = offset - half;
-    el.scrollLeft = next;
-    return next;
-  }
-  if (offset < 0) {
-    const next = offset + half;
-    el.scrollLeft = next;
-    return next;
-  }
-  return offset;
 }
 
 export default Banner;

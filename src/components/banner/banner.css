@@ -22,11 +22,7 @@
   align-items: stretch;
   height: 100%;
   width: max-content;
-}
-
-/* The second copy has to lay out as part of the same row, not as one box. */
-.banner-repeat {
-  display: contents;
+  gap: 0.25rem;
 }
 
 .banner-track img {
