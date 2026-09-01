@@ -28,9 +28,9 @@
 
 #about-bio img {
   height: 100%;
-  width: auto; /* Maintains aspect ratio */
-  max-width: 300px; /* Optional: limits image width */
-  object-fit: cover; /* Ensures image covers the container */
+  width: auto;
+  max-width: 300px;
+  object-fit: cover;
   display: block;
   border-radius: 0.5em;
   overflow: hidden;

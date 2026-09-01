@@ -39,7 +39,7 @@ throws at startup rather than rendering a broken image.
 
 Two tiers come out of that registry. Pages use `sources`/`img` (up to 1440px);
 the fullscreen viewer uses `full` (up to 3200px), fetched only when opened.
-Eleven of the pieces were photographed below 2000px and so gain nothing from the
+Nine of the pieces were photographed below 2000px and so gain nothing from the
 larger tier — `holly_grass`, the owls and `zebras` among them. Re-photographing
 is the only fix for those.
 

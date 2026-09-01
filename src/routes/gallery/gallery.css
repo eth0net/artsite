@@ -2,8 +2,8 @@
   padding: 0 var(--page-gutter);
 }
 
-/* Columns rather than grid: the pieces range from 2000x842 to 1346x2000, so a
-   uniform grid would either crop them or leave holes. */
+/* Columns rather than grid: the aspect ratios are too mixed for a uniform grid,
+   which would either crop the pieces or leave holes. */
 .gallery-images {
   columns: 3;
   column-gap: 1em;

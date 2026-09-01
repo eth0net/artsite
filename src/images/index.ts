@@ -1,13 +1,8 @@
 /**
  * Every artwork on the site, resolved at build time into AVIF/WebP srcsets.
  *
- * Sources live beside this file capped at 4000px; the camera originals are in
- * git history. Add an image by dropping the .jpg in and naming it below.
- *
- * Two tiers: `sources`/`img` are what the pages lay out, `full` is the
- * fullscreen viewer and is only ever fetched when someone opens it. Ten of
- * these were shot at under 2000px, so `full` is no larger than the page tier
- * for those — see README.
+ * Add a piece by dropping the .jpg in and naming it below. `full` is the
+ * fullscreen tier, fetched only when the viewer opens.
  */
 
 export interface Picture {

@@ -43,9 +43,7 @@
   justify-content: flex-start;
 }
 
-/* Every slide is the same height and stays centred; a wide piece is allowed to
-   run out under the arrows rather than shrinking the whole carousel to fit it.
-   .carousel clips the excess. */
+/* Fixed height; a wide piece runs out under the arrows rather than shrinking. */
 .carousel-images-center {
   flex: 0 0 auto;
   justify-content: center;
@@ -53,7 +51,7 @@
 
 .carousel-images img {
   height: 100%;
-  width: auto; /* Maintains aspect ratio */
+  width: auto;
   max-width: none; /* Height drives the size, not the container width */
   object-fit: cover;
   border-radius: 0.5em;
@@ -104,9 +102,8 @@
     display: none;
   }
 
-  /* Flex centring stops centring once free space goes negative, which pins a
-     too-wide piece to the left and spills it all off the right. Positioning it
-     off the midpoint instead splits the overflow evenly, whatever the ratio. */
+  /* Flex centring gives up once free space goes negative, spilling everything
+     off the right. Position off the midpoint so the overflow splits evenly. */
   .carousel-images-center {
     position: relative;
     flex: 1 1 100%;
